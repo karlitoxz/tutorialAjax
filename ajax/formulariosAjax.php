@@ -9,6 +9,7 @@ class AjaxFormularios{
 =            Clase AJAX           =
 =============================================*/
 	public $validarEmail;
+	public $validarToken;
 
 
 	public function ajaxValidarEmail(){
@@ -17,6 +18,15 @@ class AjaxFormularios{
 		$respuesta = ControladorFormularios::ctrSeleccionarRegistros($item, $valor);
 		echo json_encode($respuesta); 
 	}
+
+		public function ajaxValidarToken(){
+		$item = 'token';
+		$valor = $this->validarToken;
+		$respuesta = ControladorFormularios::ctrSeleccionarRegistros($item, $valor);
+		echo json_encode($respuesta); 
+	}
+
+
 
 
 /*===========  End of Clase AJAX  ============*/
@@ -29,10 +39,13 @@ if (isset($_POST['validarEmail'])) {
 		$valEmail = new AjaxFormularios();
 		$valEmail -> validarEmail = $_POST['validarEmail'];
 		$valEmail -> ajaxValidarEmail();
-	} else {
-		echo "A ocurrido un error";
 	}
-		
+	
+if (isset($_POST['validarToken'])) {
+		$valToken = new AjaxFormularios();
+		$valToken -> validarToken = $_POST['validarToken'];
+		$valToken -> ajaxValidarToken();
+	}	
 
 
 

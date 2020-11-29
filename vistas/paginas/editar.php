@@ -26,7 +26,7 @@ if(isset($_GET["token"])){
 					</span>
 				</div>
 
-				<input type="text" class="form-control" value="<?php echo $usuario["nombre"]; ?>" placeholder="Escriba su nombre" id="nombre" name="actualizarNombre">
+				<input type="text" class="form-control" value="<?php echo $usuario["nombre"]; ?>" placeholder="Escriba su nombre" id="actualizarNombre" name="actualizarNombre">
 
 			</div>
 			
@@ -42,7 +42,7 @@ if(isset($_GET["token"])){
 					</span>
 				</div>
 
-				<input type="email" class="form-control" value="<?php echo $usuario["email"]; ?>" placeholder="Escriba su email" id="email" name="actualizarEmail">
+				<input type="email" class="form-control" value="<?php echo $usuario["email"]; ?>" placeholder="Escriba su email" id="actualizarEmail" name="actualizarEmail">
 			
 			</div>
 			
@@ -81,23 +81,31 @@ if(isset($_GET["token"])){
 				window.history.replaceState( null, null, window.location.href );
 
 			}
-
+		//ajax---------
+			var datos = new FormData();
+			datos.append("validarToken","'.$usuario["token"].'");
+			$.ajax({
+				url: "ajax/formulariosAjax.php",
+				type: "POST",
+				contentType: false,
+				cache: false,
+				data: datos,
+				processData: false,
+				dataType: "json",
+			})
+			.done(function(respuesta) {
+				$("#actualizarEmail").val(respuesta["email"]);
+				$("#actualizarNombre").val(respuesta["nombre"]);.
+				alert("Hola");
+			})
+			.fail(function() {
+				console.log("error");
+			});
+			
+		//ajax---------
 			</script>';
 
-			echo '<div class="alert alert-success">El usuario ha sido actualizado</div>
-
-
-			<script>
-
-				setTimeout(function(){
-				
-					window.location = "index.php?pagina=inicio";
-
-				},3000);
-
-			</script>
-
-			';
+			echo '<div class="alert alert-success">El usuario ha sido actualizado</div>';
 
 		}
 
